@@ -1,0 +1,22 @@
+spring:
+  devtools:
+    add-properties: false
+  docker:
+    compose:
+      lifecycle-management: start_only
+  liquibase:
+    drop-first: true
+  jpa:
+    show-sql: true
+
+server:
+  ssl:
+    certificate: "classpath:cert/localhost.pem"
+    certificate-private-key: "classpath:cert/localhost-key.pem"
+
+logging:
+  level:
+    root: info
+    ppalli: debug
+  file:
+    name: "" # 로컬에서는 로그 파일을 남기지 않게

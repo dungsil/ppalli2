@@ -1,0 +1,11 @@
+version: '3.8'
+volumes:
+  pgdata:
+services:
+  postgresql:
+    image: "bitnami/postgresql:15"
+    restart: no
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRESQL_PASSWORD: postgres
