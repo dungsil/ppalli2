@@ -24,9 +24,9 @@ import kotlin.reflect.KClass
  * )
  * ```
  *
- * @param message 예외 발생시 출력할 메시지; 기본값은 빈 문자열이다
- * @param groups 이 제약 조건이 속한 유효성 검사 그룹이다 기본값은 빈 배열이다
- * @param payload 제약 조건과 연관된 페이로드이다 기본값은 빈 배열이다
+ * @param message 예외 발생시 출력할 메시지; 기본값은 빈 문자열
+ * @param groups 이 제약 조건이 속한 유효성 검사 그룹 (기본 값: 빈 배열)
+ * @param payload 제약 조건과 연관된 페이로드 (기본 값: 빈 배열)
  * @see [Size]
  * @see [RequireAlphabetOrNumber]
  * @see [SpecialCharacterConstraint]

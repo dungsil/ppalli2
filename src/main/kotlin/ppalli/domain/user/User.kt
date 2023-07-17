@@ -9,11 +9,11 @@ import ppalli.utils.generateTSID
 /**
  * 사용자 엔티티
  *
- * @param id 사용자의 고유 식별자이다
- * @param username 사용자의 사용자 이름이다
- * @param verifiedEmail 사용자의 검증된 이메일 주소이다
- * @param verifications 사용자와 연관된 사용자 검증 목록이다
- * @param passwordAuthentication 사용자와 연관된 비밀번호 인증 정보이다
+ * @param id 사용자의 고유 식별자
+ * @param username 사용자의 사용자 이름
+ * @param verifiedEmail 사용자의 검증된 이메일 주소
+ * @param verifications 사용자와 연관된 사용자 검증 목록
+ * @param passwordAuthentication 사용자와 연관된 비밀번호 인증 정보
  * @param new JPA 내부적으로 신규 생성 여부를 판단하기 위한 플래그
  */
 @Entity
