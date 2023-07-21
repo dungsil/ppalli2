@@ -29,18 +29,20 @@ class User private constructor(
   @Column(name = "encrypted_password")
   var password: UserPassword,
 
-  @Column(name = "created_at", updatable = false)
-  val createdAt: Instant = Instant.now(),
-
-  @LastModifiedDate
-  @Column(name = "last_modified_at")
-  val lastModifiedAt: Instant? = null,
-
   @Transient // DB에 포함되지 않음
   val new: Boolean = false,
-): Persistable<Long> {
+): Persistable<Long>, AuditDateEntity() {
   override fun getId(): Long = this.id
   override fun isNew(): Boolean = this.new
+
+
+  /**
+   * 사용자 가입일시
+   *
+   * [createdAt]와 동일한 값을 제공하는 alias 이다.
+   */
+  val joinedAt: Instant
+    get() = this.createdAt
 
   companion object {
     /**

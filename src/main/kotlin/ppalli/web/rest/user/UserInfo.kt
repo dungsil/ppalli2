@@ -2,6 +2,7 @@ package ppalli.web.rest.user
 
 import ppalli.domain.user.User
 import ppalli.domain.user.UserProjection
+import java.time.Instant
 
 /**
  * 사용자 응답 정보 DTO
@@ -20,8 +21,9 @@ import ppalli.domain.user.UserProjection
  */
 data class UserInfo(
   val id: Long,
-  val username: String
+  val username: String,
+  val joinedAt: Instant,
 ) {
-  constructor(user: User) : this (id = user.id, username = user.username)
-  constructor(projection: UserProjection) : this(id = projection.id, username = projection.username)
+  constructor(user: User) : this (id = user.id, username = user.username, joinedAt = user.joinedAt)
+  constructor(projection: UserProjection) : this(id = projection.id, username = projection.username, joinedAt = projection.createdAt)
 }
