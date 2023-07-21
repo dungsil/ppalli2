@@ -33,5 +33,5 @@ class UserRestController(private val service: UserRestService) {
    */
   @PostMapping
   @ResponseStatus(CREATED)
-  fun createUser(@Valid @RequestBody spec: CreateUserSpec) = service.createUser(spec.username, spec.password)
+  fun createUser(@Valid @RequestBody spec: CreateUserSpec) = service.createUser(spec)
 }
