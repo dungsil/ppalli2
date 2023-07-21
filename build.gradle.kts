@@ -1,7 +1,7 @@
 plugins {
-  kotlin("jvm") version "1.8.21"
-  kotlin("plugin.jpa") version "1.8.21"
-  kotlin("plugin.spring") version "1.8.21"
+  kotlin("jvm") version "1.9.0"
+  kotlin("plugin.jpa") version "1.9.0"
+  kotlin("plugin.spring") version "1.9.0"
   id("org.jetbrains.dokka") version "1.8.20"
 
   id("org.springframework.boot") version "3.1.1"
