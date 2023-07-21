@@ -68,6 +68,8 @@ tasks {
   }
 
   test {
+    systemProperty("spring.profiles.active", "test") // 테스트 프로필에서 작동
+
     useJUnitPlatform()
   }
 }
