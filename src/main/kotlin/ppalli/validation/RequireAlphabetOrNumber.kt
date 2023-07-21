@@ -1,4 +1,4 @@
-package ppalli.validatior
+package ppalli.validation
 
 import jakarta.validation.Constraint
 import jakarta.validation.Payload

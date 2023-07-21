@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import ppalli.exception.PpalliException
 import ppalli.utils.createLogger
-import ppalli.validatior.SpecialCharacterConstraint
+import ppalli.validation.SpecialCharacterConstraint
 import ppalli.web.error.ErrorCode.*
 
 /**
