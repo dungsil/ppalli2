@@ -1,9 +1,9 @@
 package ppalli.domain.user
 
 import jakarta.persistence.*
-import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.domain.Persistable
-import ppalli.utils.generateTSID
+import ppalli.domain.AuditDateEntity
+import ppalli.utils.IdGenerator.generateTSID
 import java.time.Instant
 
 /**
@@ -57,11 +57,9 @@ class User private constructor(
     fun of(
       username: String,
       password: UserPassword,
-      // 기본 값 있음
-      id: Long = generateTSID(),
     ): User {
       return User(
-        id = id,
+        id = generateTSID(),
         username = username,
         password = password
       )

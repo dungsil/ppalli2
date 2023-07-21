@@ -1,6 +1,6 @@
 package ppalli.domain.user
 
-import ppalli.utils.passwordEncoder
+import ppalli.utils.PasswordUtils
 
 /**
  * 사용자 비밀번호 캡슐화 객체
@@ -16,7 +16,7 @@ import ppalli.utils.passwordEncoder
  * @see [passwordEncoder] 비밀번호 암호화 인코더
  */
 @JvmInline
-value class UserPassword private constructor(val encryptedPassword: String) {
+value class UserPassword private constructor(private val encryptedPassword: String) {
   override fun toString(): String = "[masked]" // 의도치 않은 비밀번호 노출을 방지하기 위해 비밀번호를 마스킹한다.
 
   /**
@@ -26,7 +26,7 @@ value class UserPassword private constructor(val encryptedPassword: String) {
    * @return 동일한 비밀번호인 경우 `true`
    */
   fun matches(rawPassword: String): Boolean {
-    return passwordEncoder.matches(rawPassword, this.encryptedPassword)
+    return PasswordUtils.matches(rawPassword, this.encryptedPassword)
   }
 
   companion object {
@@ -38,7 +38,7 @@ value class UserPassword private constructor(val encryptedPassword: String) {
     @JvmStatic
     fun of(rawPassword: String): UserPassword {
       return UserPassword(
-        encryptedPassword = passwordEncoder.encode(rawPassword)
+        encryptedPassword = PasswordUtils.encrypt(rawPassword)
       )
     }
   }

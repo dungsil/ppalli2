@@ -10,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import ppalli.exception.PpalliException
-import ppalli.utils.createLogger
+import ppalli.extension.createLogger
 import ppalli.validation.SpecialCharacterConstraint
 
 /**

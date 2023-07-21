@@ -1,4 +1,4 @@
-package ppalli.utils
+package ppalli.extension
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 

@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import ppalli.utils.objectMapper
+import ppalli.utils.JsonUtils
 
 
 /**
@@ -18,15 +18,11 @@ import ppalli.utils.objectMapper
  */
 @Configuration
 @EnableWebMvc
-@EnableWebSecurity
-class WebConfig : WebMvcConfigurer, WebSecurityCustomizer {
-  override fun customize(web: WebSecurity) {
-    web.ignoring().anyRequest() // TODO: 추후 권한 설정
-  }
+class WebConfig : WebMvcConfigurer {
 
   override fun extendMessageConverters(converters: MutableList<HttpMessageConverter<*>>) {
     converters
       .filterIsInstance<MappingJackson2HttpMessageConverter>()
-      .map { it.objectMapper = objectMapper }
+      .map { it.objectMapper = JsonUtils.instance }
   }
 }
