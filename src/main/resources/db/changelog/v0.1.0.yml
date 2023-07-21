@@ -25,91 +25,17 @@ databaseChangeLog:
                     unique: true
                     uniqueConstraintName: users__uk--username
               - column:
-                  name: verified_email
-                  type: varchar(255)
-                  constraints:
-                    unique: true
-                    uniqueConstraintName: users__uk--verified_email
-        - createTable:
-            tableName: user_password_authentications
-            remarks: "사용자 비밀번호 로그인 테이블"
-            columns:
-              - column:
-                  name: user_id
-                  type: bigint
-                  constraints:
-                    nullable: false
-                    primaryKey: true
-                    primaryKeyName: user_password_authentications__pk
-              - column:
                   name: encrypted_password
                   type: varchar
+                  remarks: 암호화된 비밀번호
                   constraints:
                     nullable: false
               - column:
-                  name: failed_login_count
-                  type: smallint
-                  defaultValueNumeric: "0"
+                  name: created_at
+                  type: timestamptz
+                  defaultValueComputed: "now()"
                   constraints:
                     nullable: false
               - column:
-                  name: last_failed_login_at
+                  name: last_modified_at
                   type: timestamptz
-              - column:
-                  name: last_login_at
-                  type: timestamptz
-              - column:
-                  name: password_changed_at
-                  type: timestamptz
-                  constraints:
-                    nullable: false
-        - createSequence:
-            sequenceName: user_verifications__seq--id
-            incrementBy: 1
-            startValue: 1
-            minValue: 1
-        - createTable:
-            tableName: user_verifications
-            remarks: 사용자 인증 정보 테이블
-            columns:
-              - column:
-                  name: id
-                  type: bigint
-                  remarks: 사용자 인증 정보 테이블 식별자
-                  defaultValueSequenceNext: user_verifications__seq--id
-                  constraints:
-                    nullable: false
-                    primaryKey: true
-                    primaryKeyName: user_verifications__pk
-              - column:
-                  name: user_id
-                  type: bigint
-                  remarks: 인증을 요청한 사용자의 ID
-                  constraints:
-                    nullable: false
-                    primaryKey: true
-              - column:
-                  name: unverified_email
-                  type: varchar(255)
-                  remarks: 사용자가 인증할 이메일
-                  constraints:
-                    nullable: false
-              - column:
-                  name: verification_token
-                  type: varchar(32)
-                  remarks: 이메일로 발송된 인증 토큰
-                  constraints:
-                    unique: true
-                    uniqueConstraintName: user_verifications__uk--verification_token
-              - column:
-                  name: token_expired_at
-                  type: timestamptz
-                  remarks: 인증토큰의 유효기간
-              - column:
-                  name: token_sent_at
-                  type: timestamptz
-                  remarks: 인증토큰 발송 일시
-              - column:
-                  name: verified_at
-                  type: timestamptz
-                  remarks: 인증 완료 일시

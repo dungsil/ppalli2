@@ -26,3 +26,5 @@ private val tsID: TSID.Factory = TSID.Factory.INSTANCE
  * @return 생성된 TSID 를 반환한다
  */
 fun generateTSID(): Long = tsID.generate().toLong()
+
+fun generateTSIDString(): String = tsID.generate().toString()

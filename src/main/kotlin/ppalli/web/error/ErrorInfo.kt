@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore
  * // 응답 데이터: { "code": "NOT_FOUND" }
  * val notFound = ErrorInfo(code = ErrorCode.NOT_FOUND)
  *
- * // 응답 데이터: { "code": "ALREADY_USERNAME", "username": "user01"}}
+ * // 응답 데이터: { "code": "DUPLICATE_USERNAME", "username": "user01"}}
  * val alreadyUsername = ErrorInfo(
- *   code = ErrorCode.ALREADY_USERNAME,
+ *   code = ErrorCode.DUPLICATE_USERNAME,
  *   additional = mapOf("username" to "user01")
  * )
  * ```

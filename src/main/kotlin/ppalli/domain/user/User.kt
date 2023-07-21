@@ -1,25 +1,24 @@
 package ppalli.domain.user
 
 import jakarta.persistence.*
-import jakarta.persistence.CascadeType.ALL
-import jakarta.persistence.FetchType.LAZY
+import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.domain.Persistable
 import ppalli.utils.generateTSID
+import java.time.Instant
 
 /**
  * 사용자 엔티티
  *
- * @param id 사용자의 고유 식별자
- * @param username 사용자의 사용자 이름
- * @param verifiedEmail 사용자의 검증된 이메일 주소
- * @param verifications 사용자와 연관된 사용자 검증 목록
- * @param passwordAuthentication 사용자와 연관된 비밀번호 인증 정보
- * @param new JPA 내부적으로 신규 생성 여부를 판단하기 위한 플래그
+ * @property id 사용자 식별자
+ * @property username 사용자 계정
+ * @property password 사용자 비밀번호 캡슐화 객체
+ * @property createdAt 사용자 생성 일시
+ * @property lastModifiedAt 최근 사용자 정보 변경일시
+ * @property new 신규 사용자 여부; 객체 생성 시에만 `true`, DB에서 데이터를 가져오면 `false`로 고정된다.
  */
 @Entity
 @Table(name = "users")
 class User private constructor(
-
   @Id
   @Column(name = "id", updatable = false)
   val id: Long,
@@ -27,51 +26,45 @@ class User private constructor(
   @Column(name = "username", updatable = false)
   val username: String,
 
-  @Column(name = "verified_email")
-  var verifiedEmail: String? = null,
+  @Column(name = "encrypted_password")
+  var password: UserPassword,
 
-  @OneToMany(mappedBy = "user", fetch = LAZY, cascade = [ALL])
-  private val verifications: MutableList<UserVerification> = mutableListOf(),
+  @Column(name = "created_at", updatable = false)
+  val createdAt: Instant = Instant.now(),
 
-  @OneToOne(mappedBy = "user", fetch = LAZY, cascade = [ALL])
-  private var passwordAuthentication: UserPasswordAuthentication? = null,
+  @LastModifiedDate
+  @Column(name = "last_modified_at")
+  val lastModifiedAt: Instant? = null,
 
-  @Transient
-  private val new: Boolean = false, // DB 및 캐시에서 가져오면 무조건 [false]
-) : Persistable<Long> {
-  val unverifiedEmails: List<String>
-    get() = this.verifications.map { it.unverifiedEmail }
-
+  @Transient // DB에 포함되지 않음
+  val new: Boolean = false,
+): Persistable<Long> {
   override fun getId(): Long = this.id
   override fun isNew(): Boolean = this.new
 
-  fun addVerification(unverifiedEmail: String) {
-    val verification = UserVerification(
-      user = this,
-      unverifiedEmail = unverifiedEmail,
-    )
-
-    this.verifications.add(verification)
-  }
-
-  fun changePassword(rawPassword: String) {
-    if (this.passwordAuthentication != null) {
-      this.passwordAuthentication!!.changePassword(rawPassword)
-    } else {
-      this.passwordAuthentication = UserPasswordAuthentication.of(user = this, rawPassword = rawPassword)
-    }
-  }
-
   companion object {
+    /**
+     * 입력받은 사용자 계정과 평문 비밀번호를 기준으로 [User] 객체를 생성한다.
+     *
+     * 입력받은 평문비밀번호는 이 시점에서 암호화된다.
+     *
+     * @param username 사용자 계정
+     * @param password 사용자 계정의 비밀번호
+     * @param id 사용자의 ID 값 (선택사항, 기본 값: TSID 생성)
+     * @see [generateTSID]
+     */
     @JvmStatic
-    fun createUserWithPassword(
+    fun of(
       username: String,
-      rawPassword: String,
-      unverifiedEmail: String,
-
+      password: UserPassword,
+      // 기본 값 있음
       id: Long = generateTSID(),
-    ): User = User(id = id, username = username, new = true)
-      .apply { addVerification(unverifiedEmail) }
-      .apply { changePassword(rawPassword) }
+    ): User {
+      return User(
+        id = id,
+        username = username,
+        password = password
+      )
+    }
   }
 }
