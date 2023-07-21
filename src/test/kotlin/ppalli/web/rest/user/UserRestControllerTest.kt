@@ -10,8 +10,6 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActionsDsl
 import org.springframework.test.web.servlet.post
-import ppalli.domain.user.UserRepository
-import ppalli.web.error.ErrorCode
 import kotlin.test.Test
 
 @SpringBootTest
@@ -46,7 +44,7 @@ internal class UserRestControllerTest {
       .andExpect {
         status { isBadRequest() }
 
-        jsonPath("$.code", `is`(ErrorCode.DUPLICATE_USERNAME.name))
+        jsonPath("$.code", `is`("DUPLICATE_USERNAME"))
         jsonPath("$.username", `is`("test-user"))
       }
   }

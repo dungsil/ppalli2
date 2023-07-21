@@ -9,11 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore
  * **사용 예시**:
  * ```kotlin
  * // 응답 데이터: { "code": "NOT_FOUND" }
- * val notFound = ErrorInfo(code = ErrorCode.NOT_FOUND)
+ * val notFound = ErrorInfo(code = "NOT_FOUND")
  *
  * // 응답 데이터: { "code": "DUPLICATE_USERNAME", "username": "user01"}}
  * val alreadyUsername = ErrorInfo(
- *   code = ErrorCode.DUPLICATE_USERNAME,
+ *   code = "DUPLICATE_USERNAME",
  *   additional = mapOf("username" to "user01")
  * )
  * ```
@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
  * @see [ErrorAdditional]
  */
 data class ErrorInfo(
-  val code: ErrorCode,
+  val code: String,
 
   @field:JsonIgnore // field 레벨에서의 [details] 는 무시한다.
   @get:JsonAnyGetter // getter 를 통해서 [details] 를 직렬화한다.

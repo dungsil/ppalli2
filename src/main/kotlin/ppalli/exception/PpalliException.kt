@@ -2,7 +2,6 @@ package ppalli.exception
 
 import org.springframework.http.HttpStatus
 import ppalli.web.error.ErrorAdditional
-import ppalli.web.error.ErrorCode
 
 /**
  * PPALLI 비지니스 예외 클래스
@@ -15,13 +14,13 @@ import ppalli.web.error.ErrorCode
  */
 open class PpalliException(
   val status: HttpStatus,
-  val code: ErrorCode = ErrorCode.valueOf(status),
+  val code: String = status.name,
   val errors: ErrorAdditional? = null,
 
   override val message: String? = "[$status] $code : $errors",
   override val cause: Throwable? = null
 ) : RuntimeException(message, cause) {
-  constructor(status: HttpStatus, code: ErrorCode, error: Pair<String, Any>) : this(
+  constructor(status: HttpStatus, code: String, error: Pair<String, Any>) : this(
     status = status,
     code = code,
     errors = mapOf(error),

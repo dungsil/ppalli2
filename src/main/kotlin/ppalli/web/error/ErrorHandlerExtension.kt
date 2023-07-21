@@ -15,7 +15,7 @@ typealias ErrorAdditional = Map<String, Any?>
  */
 internal fun createErrorResponse(
   status: HttpStatus,
-  code: ErrorCode = ErrorCode.valueOf(status),
+  code: String = status.name,
   errors: ErrorAdditional? = null
 ): ResponseEntity<ErrorInfo> {
   return ResponseEntity

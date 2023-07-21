@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import ppalli.exception.PpalliException
 import ppalli.utils.createLogger
 import ppalli.validation.SpecialCharacterConstraint
-import ppalli.web.error.ErrorCode.*
 
 /**
  * PPALLI 내에서 발생하는 예외 ([Exception]) 을 공통적으로 처리하여
@@ -62,7 +61,7 @@ class ExceptionErrorHandler {
 
     return createErrorResponse(
       status = BAD_REQUEST,
-      code = VALIDATION_FAILED,
+      code = "VALIDATION_FAILED",
       errors = transformFieldErrorsToDetails(e.bindingResult.fieldErrors)
     )
   }
@@ -79,7 +78,7 @@ class ExceptionErrorHandler {
   fun handleHttpMessageNotReadableException(e: HttpMessageNotReadableException): ResponseEntity<ErrorInfo> {
     log.debug("Request body is null", e)
 
-    return createErrorResponse(status = BAD_REQUEST, code = EMPTY_BODY)
+    return createErrorResponse(status = BAD_REQUEST, code = "EMPTY_BODY")
   }
 
   // ===================================================================================================================
@@ -115,7 +114,7 @@ class ExceptionErrorHandler {
     val fields = mutableMapOf<String, MutableList<Map<String, Any?>>>()
 
     for (error in fieldErrors) {
-      val errors = mapOf("validation" to (error.code ?: UNKNOWN_ERROR)) + getAdditionalInfo(error)
+      val errors = mapOf("validation" to error.code) + getAdditionalInfo(error)
 
       fields
         .computeIfAbsent(error.field) { mutableListOf() }
