@@ -45,6 +45,7 @@ dependencies {
 
   // JDBC Driver
   runtimeOnly("org.postgresql:postgresql") // PostgreSQL
+  testRuntimeOnly("com.h2database:h2") // H2
 
   // Kotlin
   implementation(kotlin("stdlib-jdk8"))
