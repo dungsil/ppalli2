@@ -1,3 +1,7 @@
+### Certificate files ###
+src/main/resources/cert/**
+!src/main/resources/cert/.gitkeep
+
 ### .env ###
 .env
 
