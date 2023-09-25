@@ -41,7 +41,7 @@ dependencies {
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
   // Bouncy Castle
-  implementation("org.bouncycastle:bcprov-jdk18on:1.75")
+  implementation("org.bouncycastle:bcprov-jdk18on:1.76")
 
   // JDBC Driver
   runtimeOnly("org.postgresql:postgresql") // PostgreSQL
