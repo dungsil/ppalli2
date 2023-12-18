@@ -50,7 +50,7 @@ dependencies {
   // Kotlin
   implementation(kotlin("stdlib-jdk8"))
   implementation(kotlin("reflect"))
-  implementation("io.github.oshai:kotlin-logging-jvm:4.0.2") // Logging (SLF4j)
+  implementation("io.github.oshai:kotlin-logging-jvm:5.1.4") // Logging (SLF4j)
   testImplementation(kotlin("test-junit5"))
 }
 
