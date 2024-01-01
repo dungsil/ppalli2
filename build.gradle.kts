@@ -32,7 +32,7 @@ dependencies {
   implementation("me.paulschwarz:spring-dotenv:4.0.0")
 
   // Hypersistence Utils
-  implementation("io.hypersistence:hypersistence-utils-hibernate-62:3.6.1")
+  implementation("io.hypersistence:hypersistence-utils-hibernate-62:3.7.0")
 
   // Liquibase (Database migration)
   implementation("org.liquibase:liquibase-core")
